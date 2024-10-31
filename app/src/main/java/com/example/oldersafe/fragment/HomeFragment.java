@@ -346,6 +346,8 @@ public class HomeFragment extends Fragment implements SensorEventListener,Google
             time.setVisibility(View.GONE);
             dialog.setVisibility(View.GONE);
             process = false;
+            sendSms();
+            Toast.makeText(getContext(),"has send message for help! please wait",Toast.LENGTH_SHORT).show();
         }
     }
     private void sendSms() {
