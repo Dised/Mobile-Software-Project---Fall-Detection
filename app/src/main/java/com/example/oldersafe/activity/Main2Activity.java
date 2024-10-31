@@ -8,6 +8,11 @@ import android.widget.ListView;
 import com.example.oldersafe.R;
 import java.util.ArrayList;
 
+import android.widget.SimpleAdapter;
+import com.example.oldersafe.database.DBDao;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main2Activity extends AppCompatActivity {
     ListView listView;
 
@@ -19,14 +24,25 @@ public class Main2Activity extends AppCompatActivity {
         getDatas();
     }
 
+
     public void getDatas(){
-        ArrayList<String> placeholderData = new ArrayList<>();
-        placeholderData.add("Contact 1");
-        placeholderData.add("Contact 2");
-        placeholderData.add("Contact 3");
+        DBDao dao = new DBDao(getApplicationContext());
+        dao.open();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, placeholderData);
-        listView.setAdapter(adapter);
+        // place holder
+        String name = "Name";
+        String type = "2";
+        String flag = "2";
+
+        ArrayList<Map<String, Object>> contactData = dao.getContactData(name, type, flag); // Fetch contact data with parameters
+        if (contactData != null && !contactData.isEmpty()) {
+            String[] from = {"name", "phone", "address"};
+            int[] to = {R.id.name, R.id.phone, R.id.address};
+
+            SimpleAdapter adapter = new SimpleAdapter(this, contactData, R.layout.older_item, from, to);
+            listView.setAdapter(adapter);
+        }
+
+        dao.close();
     }
-
 }
