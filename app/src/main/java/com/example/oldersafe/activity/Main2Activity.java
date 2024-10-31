@@ -13,17 +13,37 @@ import com.example.oldersafe.database.DBDao;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.view.View;
+import android.widget.AdapterView;
+
 public class Main2Activity extends AppCompatActivity {
     ListView listView;
 
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         listView = findViewById(R.id.rv);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                new AlertDialog.Builder(Main2Activity.this)
+                        .setTitle("Contact Selected")
+                        .setMessage("You selected a contact!")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
+
         getDatas();
     }
-
 
     public void getDatas(){
         DBDao dao = new DBDao(getApplicationContext());
