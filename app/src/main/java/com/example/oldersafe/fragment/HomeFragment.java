@@ -158,6 +158,9 @@ public class HomeFragment extends Fragment implements SensorEventListener,Google
                     state.setTextColor(getResources().getColor(R.color.red));
                     time.setVisibility(View.GONE);
                     dialog.setVisibility(View.GONE);
+                    //adding the message of successful sending out help
+                    sendSms();
+                    Toast.makeText(getContext(),"has send message for help! please wait",Toast.LENGTH_SHORT).show();
                     process = false;
                 }
             }

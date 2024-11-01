@@ -15,6 +15,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.example.oldersafe.R;
+import com.example.oldersafe.activity.AddContactActivity;
 import com.example.oldersafe.config.Constants;
 import com.example.oldersafe.config.SharedPreferencesUtils;
 import com.example.oldersafe.database.DBDao;
@@ -74,11 +75,49 @@ public class ContactFragment extends Fragment {
         getDatas();
     }
 
+    TextView add;
+    ListView listView;
     private void initView() {
-
+        add = getActivity().findViewById(R.id.add);
+        listView = getActivity().findViewById(R.id.rv);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AddContactActivity.class).putExtra("type","add"));
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                HashMap<String, Object> itemMap = (HashMap<String, Object>) parent.getItemAtPosition(position);
+                String info_id = (String) itemMap.get("info_id");
+                String contact = (String) itemMap.get("contact");
+                String contact_phone = (String) itemMap.get("contact_phone");
+                startActivity(new Intent(getActivity(),AddContactActivity.class)
+                        .putExtra("type","edit")
+                        .putExtra("info_id",info_id)
+                        .putExtra("contact",contact)
+                        .putExtra("contact_phone",contact_phone));
+            }
+        });
     }
 
     public void getDatas(){
-
+        DBDao dao=new DBDao(getContext());
+        dao.open();
+        String name = (String) SharedPreferencesUtils.getParam(getContext(), Constants.User_Name, "00");
+        String User_Type = (String) SharedPreferencesUtils.getParam(getContext(), Constants.User_Type, "00");
+        ArrayList<Map<String, Object>> contactData = dao.getContactData(name, User_Type, "2");
+        if(contactData != null && contactData.size()>0) {
+            //define the data source
+            String[] from = {"contact", "contact_phone"};
+            //define layout control ids
+            int[] to = {R.id.name, R.id.phone};
+            SimpleAdapter listItemAdapter = new SimpleAdapter(getContext(), contactData, R.layout.contact_item, from, to);
+            //add and display
+            listView.setAdapter(listItemAdapter);
+            //close the database
+            dao.close();
+        }
     }
 }
