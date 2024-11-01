@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.telephony.SmsManager;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +30,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.oldersafe.MainActivity;
 import com.example.oldersafe.R;
 import com.example.oldersafe.config.Constants;
 import com.example.oldersafe.config.SharedPreferencesUtils;
@@ -43,7 +42,6 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.Map;

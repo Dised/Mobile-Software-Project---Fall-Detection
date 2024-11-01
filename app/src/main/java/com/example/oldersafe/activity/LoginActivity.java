@@ -113,7 +113,8 @@ public class LoginActivity extends AppCompatActivity {
             if(userBaseInfo.getUserType().equals("older")){
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }else{
-
+                //if the role is rescue worker, load the corresponding page
+                startActivity(new Intent(LoginActivity.this, Main2Activity.class));
             }
             finish();
         }
