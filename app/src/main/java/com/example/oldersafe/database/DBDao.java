@@ -151,7 +151,6 @@ public class DBDao {
     //This function serves to get all data from the elderly
     public ArrayList<Map<String, Object>> getAllData(String contact,String state,String flag) {
         ArrayList<Map<String, Object>> contactList = new ArrayList<Map<String, Object>>();
-//        Cursor cursor = db.query("userinfo", null, "contact=? and state=? and flag=?", new String[]{contact,state,flag}, null, null,null);
         Cursor cursor = db.query("userinfo", null, null, null, null, null,null);
         int resultCounts = cursor.getCount();
         if (resultCounts == 0 ) {

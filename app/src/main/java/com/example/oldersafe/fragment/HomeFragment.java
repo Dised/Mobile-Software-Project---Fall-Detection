@@ -158,7 +158,7 @@ public class HomeFragment extends Fragment implements SensorEventListener,Google
                     dialog.setVisibility(View.GONE);
                     //adding the message of successful sending out help
                     sendSms();
-                    Toast.makeText(getContext(),"has send message for help! please wait",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"has send message for help! please wait for Rescue Worker to come",Toast.LENGTH_SHORT).show();
                     process = false;
                 }
             }
@@ -204,6 +204,7 @@ public class HomeFragment extends Fragment implements SensorEventListener,Google
             return;
         }
 
+        //Set the update frequency of latitude and longitude request
         LocationRequest locationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(5000)
@@ -289,7 +290,8 @@ public class HomeFragment extends Fragment implements SensorEventListener,Google
 
     SensorManager sensorManager;
     Sensor accelerometer;
-    float threshold = 100.0f;
+    //threshold of accelerometer detecting fall
+    float threshold = 80.0f;
     public void initSensor(){
         sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -348,7 +350,7 @@ public class HomeFragment extends Fragment implements SensorEventListener,Google
             dialog.setVisibility(View.GONE);
             process = false;
             sendSms();
-            Toast.makeText(getContext(),"has send message for help! please wait",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"has send message for help! please wait for Rescue Worker to come",Toast.LENGTH_SHORT).show();
         }
     }
     private void sendSms() {

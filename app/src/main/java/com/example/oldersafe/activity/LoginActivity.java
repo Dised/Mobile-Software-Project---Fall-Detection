@@ -147,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
         };
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             requestPermissions(permissions,1);
-            return;
+
         }
     }
 }

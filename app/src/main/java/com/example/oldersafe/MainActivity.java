@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fragmentTransaction.add(R.id.ly_content,managerHomeFragment);
         }
         fragmentTransaction.show(managerHomeFragment);
-//        txt_home.setTextColor(getResources().getColor(R.color.colorAccent));
         fragmentTransaction.commit();
     }
 
